@@ -22,6 +22,11 @@ df_json = brands_df.toJSON().map(lambda j: json.loads(j)).collect()
 json_brands = json.dumps(df_json)
 redis_connector.r.set('brands', json_brands)
 
+unpacked_brands = json.loads(redis_connector.r.get('brands'))
+pp = [x for x in unpacked_brands if x['colors'] == "blue"]
+out_put=  json.dumps(pp)
+print(out_put)
+
 
 
 
