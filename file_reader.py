@@ -20,6 +20,7 @@ brands_df = sql_sc.read.format('csv').options(header='true', inferSchema='true')
 
 df_json = brands_df.toJSON().map(lambda j: json.loads(j)).collect()
 json_brands = json.dumps(df_json)
+print(json_brands)
 redis_connector.r.set('brands', json_brands)
 
 
