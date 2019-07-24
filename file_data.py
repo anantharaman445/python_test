@@ -14,7 +14,8 @@ def index():
   return 'Server Works!'
 
 
-
+# if __name__ == '__main__':
+#     app.run(debug=True)
 
 @app.route('/getBrandsCount', methods=['GET','POST'])
 def get_items_brans_count():
