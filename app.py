@@ -23,7 +23,8 @@ def get_items_brans_count():
 	pp = [x for x in unpacked_brands if x['dateAdded'] == date_added]
 	values = [d['brand'] for d in pp]
 	counter = Counter(values)
-	return json.dumps(counter)
+	output_json = json.dumps(counter, sort_keys=True)
+	return output_json
 
 
 @app.route('/getItemsbyColor', methods=['GET','POST'])
