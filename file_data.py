@@ -16,14 +16,14 @@ def index():
 
 
 
-@app.route('/getRecentItem', methods=['GET','POST'])
-def get_recent_item_by_date():
+@app.route('/getBrandsCount', methods=['GET','POST'])
+def get_items_brans_count():
 	unpacked_brands = json.loads(redis_connector.r.get('brands'))
 	date_added = request.form['date_added']
 	pp = [x for x in unpacked_brands if x['dateAdded'] == date_added]
-	reverse_list = pp.reverse()
-	rest_list = pp[:1]
-	return json.dumps(rest_list)
+	values = [d['brand'] for d in pp]
+	counter = Counter(values)
+	return json.dumps(counter)
 
 
 @app.route('/getItemsbyColor', methods=['GET','POST'])
@@ -34,15 +34,22 @@ def get_items_by_color():
 	rest_list = pp[:10]
 	return json.dumps(rest_list)
 
+	
 
-@app.route('/getBrandsCount', methods=['GET','POST'])
-def get_items_brans_count():
+
+
+@app.route('/getRecentItem', methods=['GET','POST'])
+def get_recent_item_by_date():
 	unpacked_brands = json.loads(redis_connector.r.get('brands'))
 	date_added = request.form['date_added']
 	pp = [x for x in unpacked_brands if x['dateAdded'] == date_added]
-	values = [d['brand'] for d in pp]
-	counter = Counter(values)
-	print(counter)
-	ssc= json.dumps(pp)
-	return json.dumps(counter)
+	reverse_list = pp.reverse()
+	rest_list = pp[:1]
+	return json.dumps(rest_list)
+
+
+
+
+
+
 
